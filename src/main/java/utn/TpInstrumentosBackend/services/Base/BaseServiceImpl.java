@@ -28,18 +28,21 @@ public abstract class BaseServiceImpl<E extends Base, ID extends Serializable> i
             logger.info("Obtenidas entidades {}", entities);
             return entities;
         } catch (Exception e) {
+            logger.info("No se hallaron las entidades solicitadas ");
             throw new Exception(e.getMessage());
         }
     }
     @Override
     @Transactional
-    public E getById(ID id) throws Exception {
-        try {
-            Optional<E> entityOptional = baseRepository.findById(id);
+    public E getById(ID id) {
+        Optional<E> entityOptional = baseRepository.findById(id);
+        if (entityOptional.isPresent()) {
             logger.info("Obtenida entidad {}", entityOptional);
             return entityOptional.get();
-        } catch (Exception e){
-            throw new Exception(e.getMessage());
+        }
+        else {
+            logger.error("No se encontró una entidad con el id " + id);
+            throw new RuntimeException("No se encontró una entidad con el id " + id);
         }
     }
 
@@ -51,13 +54,14 @@ public abstract class BaseServiceImpl<E extends Base, ID extends Serializable> i
             logger.info("Creada entidad {}", newEntity);
             return newEntity;
         } catch (Exception e){
+            logger.info("Ocurrió un error, no se pudo crear la entidad");
             throw new Exception(e.getMessage());
         }
     }
 
     @Override
     @Transactional
-    public E update(E request, ID id) throws Exception {
+    public E update(E request, ID id) {
         Optional<E> entityOptional = baseRepository.findById(id);
         if (!entityOptional.isEmpty()) {
             E entityUpdate = baseRepository.save(request);
@@ -72,9 +76,9 @@ public abstract class BaseServiceImpl<E extends Base, ID extends Serializable> i
 
     @Override
     @Transactional
-    public boolean delete(ID id) throws Exception {
+    public boolean delete(ID id) {
         Optional<E> entityOptional = baseRepository.findById(id);
-        if (!entityOptional.isEmpty()) {
+        if (entityOptional.isPresent()) {
             E entityUpdate = entityOptional.get();
             entityUpdate.setActive(false);
             baseRepository.save(entityUpdate);
