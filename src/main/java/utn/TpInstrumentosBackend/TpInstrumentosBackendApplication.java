@@ -23,7 +23,6 @@ public class TpInstrumentosBackendApplication {
 		System.out.println("Visualizacion en H2: http://localhost:8080/h2-console/");
 	}
 
-
 	@Bean
 	CommandLineRunner init(InstrumentoRepository instrumentoRepository, CategoriaRepository categoriaRepository) {
 		return args -> {
