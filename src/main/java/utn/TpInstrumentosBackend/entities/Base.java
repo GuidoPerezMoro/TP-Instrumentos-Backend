@@ -20,6 +20,8 @@ public abstract class Base implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
+
+    @Builder.Default
     protected boolean active = true;
 
     public Boolean isActive(){

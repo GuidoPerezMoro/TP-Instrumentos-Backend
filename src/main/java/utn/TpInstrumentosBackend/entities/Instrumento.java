@@ -28,5 +28,4 @@ public class Instrumento extends Base{
     @ManyToOne(optional = false)
     @JoinColumn(name = "IdCategoria")
     private Categoria categoria;
-
 }
