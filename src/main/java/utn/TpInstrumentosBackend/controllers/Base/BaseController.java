@@ -1,4 +1,4 @@
-package utn.TpInstrumentosBackend.controllers;
+package utn.TpInstrumentosBackend.controllers.Base;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
