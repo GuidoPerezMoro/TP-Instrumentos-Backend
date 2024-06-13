@@ -58,7 +58,10 @@ public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceIm
     public ResponseEntity<?> delete(@PathVariable Long id){
         try{
             logger.info("Inicio método delete elemento id {}", id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.delete(id));
+            if (service.delete(id))
+                return ResponseEntity.status(HttpStatus.OK).body("{\"Elemento borrado correctamente\"}");
+            else
+                throw new RuntimeException();
         } catch (Exception e){
             logger.info("Ocurrió un error en el método delete elemento id {}",id);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. Por favor intente más tarde.\"}");

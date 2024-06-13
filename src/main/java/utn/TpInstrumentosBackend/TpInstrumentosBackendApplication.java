@@ -54,6 +54,7 @@ public class TpInstrumentosBackendApplication {
 
 				Instrumento instrumento1 = Instrumento.builder()
 						.instrumento("Mandolina Instrumento Musical Stagg Sunburst")
+						//.active(false)
 						.marca("Stagg")
 						.modelo("M20")
 						.imagen("https://www.heavenimagenes.com/heavencommerce/c98a269a-2842-4da0-a6e5-e0e155d29966/images/v2/STAGG/1808291259027891_03_medium.jpg")

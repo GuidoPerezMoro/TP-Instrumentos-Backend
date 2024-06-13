@@ -9,6 +9,7 @@ import utn.TpInstrumentosBackend.entities.Base;
 import utn.TpInstrumentosBackend.repositories.BaseRepository;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +26,13 @@ public abstract class BaseServiceImpl<E extends Base, ID extends Serializable> i
     public List<E> getAll() throws Exception {
         try {
             List<E> entities = baseRepository.findAll();
-            logger.info("Obtenidas entidades {}", entities);
-            return entities;
+            List<E> entitiesActive = new java.util.ArrayList<>(Collections.emptyList());
+            for (E entity: entities) {
+                if (entity.isActive())
+                    entitiesActive.add(entity);
+            }
+            logger.info("Obtenidas entidades {}", entitiesActive);
+            return entitiesActive;
         } catch (Exception e) {
             logger.info("No se hallaron las entidades solicitadas ");
             throw new Exception(e.getMessage());
@@ -36,7 +42,7 @@ public abstract class BaseServiceImpl<E extends Base, ID extends Serializable> i
     @Transactional
     public E getById(ID id) {
         Optional<E> entityOptional = baseRepository.findById(id);
-        if (entityOptional.isPresent()) {
+        if (entityOptional.isPresent() && entityOptional.get().isActive()) {
             logger.info("Obtenida entidad {}", entityOptional);
             return entityOptional.get();
         }
@@ -63,7 +69,7 @@ public abstract class BaseServiceImpl<E extends Base, ID extends Serializable> i
     @Transactional
     public E update(E request, ID id) {
         Optional<E> entityOptional = baseRepository.findById(id);
-        if (!entityOptional.isEmpty()) {
+        if (entityOptional.isPresent() && entityOptional.get().isActive()) {
             E entityUpdate = baseRepository.save(request);
             logger.info("Actualizada entidad {}", entityUpdate);
             return entityUpdate;
@@ -78,7 +84,7 @@ public abstract class BaseServiceImpl<E extends Base, ID extends Serializable> i
     @Transactional
     public boolean delete(ID id) {
         Optional<E> entityOptional = baseRepository.findById(id);
-        if (entityOptional.isPresent()) {
+        if (entityOptional.isPresent() && entityOptional.get().isActive()) {
             E entityUpdate = entityOptional.get();
             entityUpdate.setActive(false);
             baseRepository.save(entityUpdate);
@@ -90,4 +96,6 @@ public abstract class BaseServiceImpl<E extends Base, ID extends Serializable> i
             throw new RuntimeException("No se encontró una entidad con el id " + id);
         }
     }
+
+
 }
