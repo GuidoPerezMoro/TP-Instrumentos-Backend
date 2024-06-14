@@ -30,6 +30,12 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	//Mercado Pago
+	implementation 'com.mercadopago:sdk-java:2.1.24'
+	// PDFs
+	implementation 'com.itextpdf:itext7-core:7.2.2'
+	//Excel
+	implementation 'org.apache.poi:poi-ooxml:5.2.3'
 }
 
 tasks.named('test') {
