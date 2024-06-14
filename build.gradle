@@ -31,7 +31,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	//Mercado Pago
-	implementation 'com.mercadopago:sdk-java:2.1.24'
+	implementation 'com.mercadopago:sdk-java:2.1.7'
 	// PDFs
 	implementation 'com.itextpdf:itext7-core:7.2.2'
 	//Excel
