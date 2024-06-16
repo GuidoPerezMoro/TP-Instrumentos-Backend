@@ -1,9 +1,6 @@
 package utn.TpInstrumentosBackend.entities;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -21,6 +18,7 @@ public abstract class Base implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
+    @Column(nullable = false)
     @Builder.Default
     protected boolean active = true;
 

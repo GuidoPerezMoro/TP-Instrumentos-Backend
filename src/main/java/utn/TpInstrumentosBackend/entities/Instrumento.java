@@ -1,11 +1,10 @@
 package utn.TpInstrumentosBackend.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @Entity
 @SuperBuilder
-@Table(name = "Instrumento")
+@Table(name = "instrumento")
 public class Instrumento extends Base{
     private String instrumento;
     private String marca;
@@ -26,6 +25,7 @@ public class Instrumento extends Base{
     private String descripcion;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "IdCategoria")
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
+
 }

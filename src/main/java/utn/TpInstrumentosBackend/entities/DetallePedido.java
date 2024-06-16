@@ -1,9 +1,6 @@
 package utn.TpInstrumentosBackend.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -16,9 +13,11 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Table(name = "DetallePedido")
 public class DetallePedido extends Base {
-    private int cantidad;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "IdInstrumento")
+    @ManyToOne
+    @JoinColumn(name = "instrumento_id", nullable = false)
     private Instrumento instrumento;
+
+    @Column(nullable = false)
+    private int cantidad;
 }

@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,6 +20,6 @@ public class Pedido extends Base {
     private double totalPedido;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "IdDetallePedido")
-    private DetallePedido detalle;
+    @JoinColumn(name = "pedido_id")
+    private List<DetallePedido> detallesPedido;
 }
