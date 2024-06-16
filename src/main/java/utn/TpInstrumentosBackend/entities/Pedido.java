@@ -18,7 +18,7 @@ public class Pedido extends Base {
     private LocalDate fecha;
     private double totalPedido;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "DetalleId")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "IdDetallePedido")
     private DetallePedido detalle;
 }
