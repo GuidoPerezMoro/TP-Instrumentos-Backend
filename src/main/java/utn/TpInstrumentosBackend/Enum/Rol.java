@@ -1,5 +1,5 @@
 package utn.TpInstrumentosBackend.Enum;
 
 public enum Rol {
-    ADMIN,DEVELOPER,CLIENT;
+    DEVELOPER, ADMIN, OPERADOR, CLIENTE, INVITADO;
 }

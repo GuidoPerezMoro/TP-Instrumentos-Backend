@@ -193,13 +193,6 @@ public class TpInstrumentosBackendApplication {
 
 				// Creación de usuarios
 				if (usuarioRepository.count() == 0) {
-					Usuario admin = new Usuario();
-					admin.setUsername("admin");
-					admin.setPassword("1234");
-					admin.setRol(Rol.ADMIN);
-					usuarioRepository.save(admin);
-					System.out.println("Usuario admin creado");
-
 					Usuario developer = new Usuario();
 					developer.setUsername("developer");
 					developer.setPassword("1234");
@@ -207,10 +200,24 @@ public class TpInstrumentosBackendApplication {
 					usuarioRepository.save(developer);
 					System.out.println("Usuario developer creado");
 
+					Usuario admin = new Usuario();
+					admin.setUsername("admin");
+					admin.setPassword("1234");
+					admin.setRol(Rol.ADMIN);
+					usuarioRepository.save(admin);
+					System.out.println("Usuario admin creado");
+
+					Usuario operador = new Usuario();
+					operador.setUsername("operador");
+					operador.setPassword("1234");
+					operador.setRol(Rol.OPERADOR);
+					usuarioRepository.save(operador);
+					System.out.println("Usuario operador creado");
+
 					Usuario cliente = new Usuario();
 					cliente.setUsername("cliente");
 					cliente.setPassword("1234");
-					cliente.setRol(Rol.CLIENT);
+					cliente.setRol(Rol.CLIENTE);
 					usuarioRepository.save(cliente);
 					System.out.println("Usuario cliente creado");
 				}
