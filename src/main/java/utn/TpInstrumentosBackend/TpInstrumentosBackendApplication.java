@@ -6,10 +6,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import utn.TpInstrumentosBackend.Enum.Rol;
 import utn.TpInstrumentosBackend.entities.Categoria;
 import utn.TpInstrumentosBackend.entities.Instrumento;
+import utn.TpInstrumentosBackend.entities.Usuario;
 import utn.TpInstrumentosBackend.repositories.CategoriaRepository;
 import utn.TpInstrumentosBackend.repositories.InstrumentoRepository;
+import utn.TpInstrumentosBackend.repositories.UsuarioRepository;
 
 @SpringBootApplication
 public class TpInstrumentosBackendApplication {
@@ -17,6 +20,9 @@ public class TpInstrumentosBackendApplication {
 	InstrumentoRepository instrumentoRepository;
 	@Autowired
 	CategoriaRepository categoriaRepository;
+
+	@Autowired
+	UsuarioRepository usuarioRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TpInstrumentosBackendApplication.class, args);
@@ -184,6 +190,30 @@ public class TpInstrumentosBackendApplication {
 						.descripcion("DESCRIPCIÓN: DE 1 A 3 AÑOS. EL SET INCLUYE 5 TAMBORES, PALILLOS Y EL PLATILLO TAL CUAL LAS FOTOS. SONIDOS REALISTAS Y FÁCIL DE MONTAR. MEDIDAS: 40X20X46 CM")
 						.build();
 				instrumentoRepository.save(instrumento10);
+
+				// Creación de usuarios
+				if (usuarioRepository.count() == 0) {
+					Usuario admin = new Usuario();
+					admin.setUsername("admin");
+					admin.setPassword("1234");
+					admin.setRol(Rol.ADMIN);
+					usuarioRepository.save(admin);
+					System.out.println("Usuario admin creado");
+
+					Usuario developer = new Usuario();
+					developer.setUsername("developer");
+					developer.setPassword("1234");
+					developer.setRol(Rol.DEVELOPER);
+					usuarioRepository.save(developer);
+					System.out.println("Usuario developer creado");
+
+					Usuario cliente = new Usuario();
+					cliente.setUsername("cliente");
+					cliente.setPassword("1234");
+					cliente.setRol(Rol.CLIENT);
+					usuarioRepository.save(cliente);
+					System.out.println("Usuario cliente creado");
+				}
 
 			}
 		};
