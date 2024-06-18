@@ -7,12 +7,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import utn.TpInstrumentosBackend.Enum.Rol;
-import utn.TpInstrumentosBackend.entities.Categoria;
-import utn.TpInstrumentosBackend.entities.Instrumento;
-import utn.TpInstrumentosBackend.entities.Usuario;
+import utn.TpInstrumentosBackend.entities.*;
 import utn.TpInstrumentosBackend.repositories.CategoriaRepository;
 import utn.TpInstrumentosBackend.repositories.InstrumentoRepository;
+import utn.TpInstrumentosBackend.repositories.PedidoRepository;
 import utn.TpInstrumentosBackend.repositories.UsuarioRepository;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class TpInstrumentosBackendApplication {
@@ -20,9 +23,10 @@ public class TpInstrumentosBackendApplication {
 	InstrumentoRepository instrumentoRepository;
 	@Autowired
 	CategoriaRepository categoriaRepository;
-
 	@Autowired
 	UsuarioRepository usuarioRepository;
+	@Autowired
+	PedidoRepository pedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TpInstrumentosBackendApplication.class, args);
@@ -31,7 +35,7 @@ public class TpInstrumentosBackendApplication {
 	}
 
 	@Bean
-	CommandLineRunner init(InstrumentoRepository instrumentoRepository, CategoriaRepository categoriaRepository) {
+	CommandLineRunner init() {
 		return args -> {
 			{
 				Categoria categoria1 = Categoria.builder()
@@ -93,7 +97,7 @@ public class TpInstrumentosBackendApplication {
 						.imagen("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT76yg8JWkcQBshWoVnJZwVmUGXq-5gf5o3MHwrlqgUMw&s")
 						.precio(260f)
 						.costoEnvio("250")
-						.cantidadVendida(3)
+						.cantidadVendida(31)
 						.descripcion("Triangulo Musical de 24 Centímetros De Acero.")
 						.categoria(categoria3)
 						.build();
@@ -159,7 +163,7 @@ public class TpInstrumentosBackendApplication {
 						.imagen("https://http2.mlstatic.com/D_NQ_NP_851863-MLU71029857717_082023-O.webp")
 						.precio(2250f)
 						.costoEnvio("G")
-						.cantidadVendida(1375)
+						.cantidadVendida(105)
 						.categoria(categoria5)
 						.descripcion("Organo Electrónico GADNIC T01. Display de Led. 54 Teclas. 100 Timbres / 100 Ritmos. 4 1/2 octavas. 8 Percusiones. 8 Canciones de muestra. Grabación y reproducción. Entrada para Micrófono.")
 						.build();
@@ -185,7 +189,7 @@ public class TpInstrumentosBackendApplication {
 						.imagen("https://http2.mlstatic.com/D_NQ_NP_643960-MLA27368744727_052018-O.webp")
 						.precio(850)
 						.costoEnvio("250")
-						.cantidadVendida(380)
+						.cantidadVendida(210)
 						.categoria(categoria3)
 						.descripcion("DESCRIPCIÓN: DE 1 A 3 AÑOS. EL SET INCLUYE 5 TAMBORES, PALILLOS Y EL PLATILLO TAL CUAL LAS FOTOS. SONIDOS REALISTAS Y FÁCIL DE MONTAR. MEDIDAS: 40X20X46 CM")
 						.build();
@@ -220,10 +224,56 @@ public class TpInstrumentosBackendApplication {
 					cliente.setRol(Rol.CLIENTE);
 					usuarioRepository.save(cliente);
 					System.out.println("Usuario cliente creado");
-				}
 
-			}
+
+					//Creación de pedidos
+					// Obtenemos los instrumentos previamente guardados
+					List<Instrumento> instrumentos = instrumentoRepository.findAll();
+
+					// Lista de pedidos a insertar
+					List<Pedido> pedidos = new ArrayList<>();
+
+					// Generamos 10 pedidos con diversas fechas, cantidades y totalPedido calculado
+					pedidos.add(createPedido(instrumentos, LocalDate.of(2023, 10, 15), new int[]{1, 2, 3, 4}));
+					pedidos.add(createPedido(instrumentos, LocalDate.of(2023, 12, 22), new int[]{5, 6, 7, 8}));
+					pedidos.add(createPedido(instrumentos, LocalDate.of(2023, 12, 25), new int[]{9, 10, 1, 2}));
+					pedidos.add(createPedido(instrumentos, LocalDate.of(2024, 1, 9), new int[]{3, 4, 5, 6}));
+					pedidos.add(createPedido(instrumentos, LocalDate.of(2024, 2, 18), new int[]{7, 8, 9, 10}));
+					pedidos.add(createPedido(instrumentos, LocalDate.of(2024, 3, 30), new int[]{1, 3, 5, 7}));
+					pedidos.add(createPedido(instrumentos, LocalDate.of(2024, 3, 14), new int[]{2, 4, 6, 8}));
+					pedidos.add(createPedido(instrumentos, LocalDate.of(2024, 6, 5), new int[]{10, 9, 8, 7}));
+					pedidos.add(createPedido(instrumentos, LocalDate.of(2024, 6, 17), new int[]{6, 5, 4, 3}));
+					pedidos.add(createPedido(instrumentos, LocalDate.of(2024, 6, 25), new int[]{2, 3, 4, 5}));
+
+					// Guardamos los pedidos en la base de datos
+					pedidoRepository.saveAll(pedidos);
+				}
+			};
 		};
 	}
+	// Método para crear un pedido con una fecha dada y cantidades para cada instrumento
+	private Pedido createPedido(List<Instrumento> instrumentos, LocalDate fecha, int[] cantidades) {
+		List<DetallePedido> detallesPedido = new ArrayList<>();
+		double totalPedido = 0;
 
+		for (int i = 0; i < cantidades.length; i++) {
+			Instrumento instrumento = instrumentos.get(i % instrumentos.size());
+			int cantidad = cantidades[i];
+			double precio = instrumento.getPrecio();
+
+			DetallePedido detalle = DetallePedido.builder()
+					.instrumento(instrumento)
+					.cantidad(cantidad)
+					.build();
+			detallesPedido.add(detalle);
+
+			totalPedido += precio * cantidad;
+		}
+
+		return Pedido.builder()
+				.fecha(fecha)
+				.totalPedido(totalPedido)
+				.detallesPedido(detallesPedido)
+				.build();
+	}
 }
