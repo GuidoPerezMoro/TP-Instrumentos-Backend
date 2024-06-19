@@ -96,6 +96,4 @@ public abstract class BaseServiceImpl<E extends Base, ID extends Serializable> i
             throw new RuntimeException("No se encontró una entidad con el id " + id);
         }
     }
-
-
 }
