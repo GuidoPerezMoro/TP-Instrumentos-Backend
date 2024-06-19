@@ -107,10 +107,10 @@ public class TpInstrumentosBackendApplication {
 						.instrumento("Bar Chimes Lp Cortina Musical 72 Barras")
 						.marca("FM")
 						.modelo("LATIN")
-						.imagen("https://http2.mlstatic.com/D_NQ_NP_670997-MLA31575604825_072019-O.webp")
+						.imagen("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVyoUZvmgfTx_bCV9HQ34V-oO5Tq6KzEy1AQ&s")
 						.precio(2250f)
 						.costoEnvio("G")
-						.cantidadVendida(2)
+						.cantidadVendida(6)
 						.descripcion("BARCHIME CORTINA MUSICAL DE 25 BARRAS LATIN CUSTOM. Emitimos factura A y B")
 						.categoria(categoria3)
 						.build();
