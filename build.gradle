@@ -45,6 +45,9 @@ dependencies {
 
 	// Iconos
 	// implementation 'com.itextpdf:itext7-svg:7.1.15' //Tiró error
+
+	// Excel
+	implementation 'org.apache.poi:poi-ooxml:5.2.3'
 }
 
 tasks.named('test') {
