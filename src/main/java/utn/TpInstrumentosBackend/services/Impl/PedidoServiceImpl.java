@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import utn.TpInstrumentosBackend.entities.DetallePedido;
 import utn.TpInstrumentosBackend.entities.Pedido;
 import utn.TpInstrumentosBackend.repositories.BaseRepository;
+import utn.TpInstrumentosBackend.repositories.DetallePedidoRepository;
 import utn.TpInstrumentosBackend.repositories.PedidoRepository;
 import utn.TpInstrumentosBackend.services.Base.BaseServiceImpl;
 import utn.TpInstrumentosBackend.services.PedidoService;
@@ -24,6 +25,8 @@ public class PedidoServiceImpl extends BaseServiceImpl<Pedido, Long> implements 
 
     @Autowired
     protected PedidoRepository pedidoRepository;
+    @Autowired
+    private DetallePedidoRepository detallePedidoRepository;
     @Override
     public Map<String, Long> getPedidosCountByMonthYear() {
         List<Object[]> results = pedidoRepository.countPedidosByMonthYear();
@@ -40,6 +43,17 @@ public class PedidoServiceImpl extends BaseServiceImpl<Pedido, Long> implements 
         return pedidosByMonthYear;
     }
 
+    @Override
+    public Map<String, Long> countPedidosByInstrumento() {
+        List<Object[]> results = detallePedidoRepository.countPedidosByInstrumento();
+        Map<String, Long> pedidosByInstrumento = new LinkedHashMap<>();
+        for (Object[] result : results) {
+            String instrumento = result[0].toString();
+            Long count = (Long) result[1];
+            pedidosByInstrumento.put(instrumento, count);
+        }
+        return pedidosByInstrumento;
+    }
     public ByteArrayInputStream exportPedidosToExcel(LocalDate fechaDesde, LocalDate fechaHasta) throws IOException {
         List<Pedido> pedidos = pedidoRepository.findPedidosByFechaBetween(fechaDesde, fechaHasta);
 

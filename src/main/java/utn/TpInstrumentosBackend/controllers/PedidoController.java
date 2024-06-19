@@ -60,6 +60,12 @@ public class PedidoController extends BaseControllerImpl<Pedido, PedidoServiceIm
         return ResponseEntity.ok(pedidosByMonthYear);
     }
 
+    @GetMapping("/countByInstrumento")
+    public ResponseEntity<Map<String, Long>> countPedidosByInstrumento() {
+        Map<String, Long> pedidosByInstrumento = pedidoService.countPedidosByInstrumento();
+        return ResponseEntity.ok(pedidosByInstrumento);
+    }
+
     @GetMapping("/excel")
     public ResponseEntity<InputStreamResource> exportPedidosToExcel(@RequestParam LocalDate fechaDesde, @RequestParam LocalDate fechaHasta) throws IOException {
         ByteArrayInputStream in = pedidoService.exportPedidosToExcel(fechaDesde, fechaHasta);

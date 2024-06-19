@@ -9,5 +9,6 @@ import java.util.Map;
 
 public interface PedidoService extends BaseService<Pedido,Long>{
     Map<String, Long> getPedidosCountByMonthYear();
+    Map<String, Long> countPedidosByInstrumento();
     public ByteArrayInputStream exportPedidosToExcel(LocalDate fechaDesde, LocalDate fechaHasta) throws Exception;
 }
