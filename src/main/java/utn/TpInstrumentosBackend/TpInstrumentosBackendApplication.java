@@ -242,8 +242,8 @@ public class TpInstrumentosBackendApplication {
 					pedidos.add(createPedido(instrumentos, LocalDate.of(2024, 3, 30), new int[]{1, 3, 5, 7}));
 					pedidos.add(createPedido(instrumentos, LocalDate.of(2024, 3, 14), new int[]{2, 4, 6, 8}));
 					pedidos.add(createPedido(instrumentos, LocalDate.of(2024, 6, 5), new int[]{10, 9, 8, 7}));
-					pedidos.add(createPedido(instrumentos, LocalDate.of(2024, 6, 17), new int[]{6, 5, 4, 3}));
-					pedidos.add(createPedido(instrumentos, LocalDate.of(2024, 6, 25), new int[]{2, 3, 4, 5}));
+					pedidos.add(createPedido(instrumentos, LocalDate.of(2024, 6, 12), new int[]{6, 5, 4, 3}));
+					pedidos.add(createPedido(instrumentos, LocalDate.of(2024, 6, 17), new int[]{1, 1, 2, 2}));
 
 					// Guardamos los pedidos en la base de datos
 					pedidoRepository.saveAll(pedidos);
