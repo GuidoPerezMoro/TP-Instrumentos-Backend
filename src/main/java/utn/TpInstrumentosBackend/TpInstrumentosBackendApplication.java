@@ -163,7 +163,7 @@ public class TpInstrumentosBackendApplication {
 						.imagen("https://http2.mlstatic.com/D_NQ_NP_851863-MLU71029857717_082023-O.webp")
 						.precio(2250f)
 						.costoEnvio("G")
-						.cantidadVendida(105)
+						.cantidadVendida(25)
 						.categoria(categoria5)
 						.descripcion("Organo Electrónico GADNIC T01. Display de Led. 54 Teclas. 100 Timbres / 100 Ritmos. 4 1/2 octavas. 8 Percusiones. 8 Canciones de muestra. Grabación y reproducción. Entrada para Micrófono.")
 						.build();
@@ -189,7 +189,7 @@ public class TpInstrumentosBackendApplication {
 						.imagen("https://http2.mlstatic.com/D_NQ_NP_643960-MLA27368744727_052018-O.webp")
 						.precio(850)
 						.costoEnvio("250")
-						.cantidadVendida(210)
+						.cantidadVendida(12)
 						.categoria(categoria3)
 						.descripcion("DESCRIPCIÓN: DE 1 A 3 AÑOS. EL SET INCLUYE 5 TAMBORES, PALILLOS Y EL PLATILLO TAL CUAL LAS FOTOS. SONIDOS REALISTAS Y FÁCIL DE MONTAR. MEDIDAS: 40X20X46 CM")
 						.build();
